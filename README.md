@@ -44,14 +44,17 @@ ASMR is a native macOS document app — window-based, Finder-integrated — that
 
 | Milestone | Status |
 |-----------|--------|
-| Requirements (PRD) | 🔄 In progress |
-| Architecture | ⏳ Planned |
+| Requirements (PRD) | ✅ Done (v0.2) |
+| Architecture | ✅ Done (v0.1) |
+| Project scaffold | ✅ Done |
+| Markdown parser integration | 🔄 Next |
 | MVP | ⏳ Planned |
 | App Store submission | ⏳ Planned |
 
 ## Documents
 
 - [Product Requirements Document](docs/PRD.md)
+- [Architecture](docs/ARCHITECTURE.md)
 
 ## Contributing
 

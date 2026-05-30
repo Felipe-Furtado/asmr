@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASMR</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="highlight.min.css" />
+  <script src="highlight.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre code').forEach(block => {
+        hljs.highlightElement(block);
+      });
+    });
+  </script>
+</head>
+<body>
+  <article class="markdown-body">
+    {{CONTENT}}
+  </article>
+</body>
+</html>
