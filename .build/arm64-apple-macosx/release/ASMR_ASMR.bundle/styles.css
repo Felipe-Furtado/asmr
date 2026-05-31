@@ -23,19 +23,20 @@
   --line-height:      1.65;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text-color:       #e8e8e8;
-    --bg-color:         #1e1e1e;
-    --link-color:       #4da3ff;
-    --code-bg:          #2a2a2a;
-    --code-border:      #3a3a3a;
-    --blockquote-bar:   #555555;
-    --blockquote-text:  #aaaaaa;
-    --table-border:     #3a3a3a;
-    --table-header-bg:  #2a2a2a;
-    --hr-color:         #3a3a3a;
-  }
+/* Dark mode: applied via html.dark class injected by Swift at render time.
+   This is more reliable than prefers-color-scheme inside WKWebView, where
+   the media query timing relative to NSViewRepresentable is unpredictable. */
+html.dark {
+  --text-color:       #e8e8e8;
+  --bg-color:         #1e1e1e;
+  --link-color:       #4da3ff;
+  --code-bg:          #2a2a2a;
+  --code-border:      #3a3a3a;
+  --blockquote-bar:   #555555;
+  --blockquote-text:  #aaaaaa;
+  --table-border:     #3a3a3a;
+  --table-header-bg:  #2a2a2a;
+  --hr-color:         #3a3a3a;
 }
 
 /* ---- Reset & base ---- */

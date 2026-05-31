@@ -5,6 +5,7 @@ import SwiftUI
 struct ContentView: View {
 
     @Binding var document: MarkdownFile
+    @Environment(\.colorScheme) private var colorScheme
 
     @State private var viewMode: ViewMode = .rendered
     @State private var renderedHTML: String = ""
@@ -36,7 +37,9 @@ struct ContentView: View {
             }
         }
         .onAppear { render() }
-        .onChange(of: document.text) { render() }
+        // Re-render when the document changes or the OS appearance flips
+        .onChange(of: document.text)  { render() }
+        .onChange(of: colorScheme)    { render() }
     }
 
     // MARK: - Private
@@ -47,7 +50,10 @@ struct ContentView: View {
     }
 
     private func render() {
-        renderedHTML = MarkdownRenderer.shared.render(document.text)
+        renderedHTML = MarkdownRenderer.shared.render(
+            document.text,
+            isDark: colorScheme == .dark
+        )
     }
 }
 
