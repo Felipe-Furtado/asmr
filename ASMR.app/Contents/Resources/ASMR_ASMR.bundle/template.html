@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--
+    CSS is inlined below by MarkdownRenderer at render time.
+    We do NOT use <link href="styles.css"> because loadHTMLString(_:baseURL:)
+    does not reliably grant WKWebView access to load relative file:// resources,
+    even with a bundle base URL. Inlining makes the page fully self-contained.
+  -->
+  <style>{{STYLES}}</style>
   <title>ASMR</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="highlight.min.css" />
-  <script src="highlight.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('pre code').forEach(block => {
-        hljs.highlightElement(block);
-      });
-    });
-  </script>
 </head>
 <body>
   <article class="markdown-body">
