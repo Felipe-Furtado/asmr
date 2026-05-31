@@ -29,6 +29,12 @@ commands:
     outputs: ["/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR.product/Objects.LinkFileList"]
     description: "Write auxiliary file /Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR.product/Objects.LinkFileList"
 
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/AppIcon.icns":
+    tool: copy-tool
+    inputs: ["/Users/ffurtado/Documents/Claude Code/asmr/Sources/ASMR/Resources/AppIcon.icns"]
+    outputs: ["/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/AppIcon.icns"]
+    description: "Copying /Users/ffurtado/Documents/Claude Code/asmr/Sources/ASMR/Resources/AppIcon.icns"
+
   "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/highlight.min.css":
     tool: copy-tool
     inputs: ["/Users/ffurtado/Documents/Claude Code/asmr/Sources/ASMR/Resources/highlight.min.css"]
@@ -105,7 +111,7 @@ commands:
 
   "ASMR-arm64-apple-macosx-release.module-resources":
     tool: phony
-    inputs: ["/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/highlight.min.css","/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/highlight.min.js","/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/styles.css","/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/template.html"]
+    inputs: ["/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/AppIcon.icns","/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/highlight.min.css","/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/highlight.min.js","/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/styles.css","/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/template.html"]
     outputs: ["<ASMR-arm64-apple-macosx-release.module-resources>"]
 
   "C.ASMR-arm64-apple-macosx-release.exe":

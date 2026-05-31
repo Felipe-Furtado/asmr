@@ -13,6 +13,23 @@ RES_BUNDLE  := $(APP_NAME)_$(APP_NAME).bundle
 # First-time setup
 # ──────────────────────────────────────────────
 
+## Regenerate AppIcon.icns from scripts/make_icon.swift
+icon:
+	@echo "▶ Generating icon..."
+	@swift scripts/make_icon.swift
+	@mkdir -p /tmp/AppIcon.iconset
+	@for s in 16 32 64 128 256 512 1024; do \
+		sips -z $$s $$s /tmp/asmr_icon_1024.png \
+		     --out /tmp/AppIcon.iconset/icon_$${s}x$${s}.png > /dev/null; \
+	done
+	@cp /tmp/AppIcon.iconset/icon_32x32.png    /tmp/AppIcon.iconset/icon_16x16@2x.png
+	@cp /tmp/AppIcon.iconset/icon_64x64.png    /tmp/AppIcon.iconset/icon_32x32@2x.png
+	@cp /tmp/AppIcon.iconset/icon_256x256.png  /tmp/AppIcon.iconset/icon_128x128@2x.png
+	@cp /tmp/AppIcon.iconset/icon_512x512.png  /tmp/AppIcon.iconset/icon_256x256@2x.png
+	@cp /tmp/AppIcon.iconset/icon_1024x1024.png /tmp/AppIcon.iconset/icon_512x512@2x.png
+	@iconutil -c icns /tmp/AppIcon.iconset -o Sources/ASMR/Resources/AppIcon.icns
+	@echo "✓ AppIcon.icns updated"
+
 ## Accept Xcode license (required once after Xcode install)
 license:
 	sudo xcodebuild -license accept
@@ -47,14 +64,16 @@ app: build
 	@rm -rf $(APP_BUNDLE)
 	@mkdir -p $(APP_BUNDLE)/Contents/MacOS
 	@mkdir -p $(APP_BUNDLE)/Contents/Resources
-	@cp $(BUILD_DIR)/$(APP_NAME)          $(APP_BUNDLE)/Contents/MacOS/
-	@cp Info.plist                         $(APP_BUNDLE)/Contents/
+	@cp $(BUILD_DIR)/$(APP_NAME)                    $(APP_BUNDLE)/Contents/MacOS/
+	@cp Info.plist                                  $(APP_BUNDLE)/Contents/
 	@if [ -d "$(BUILD_DIR)/$(RES_BUNDLE)" ]; then \
 		cp -r "$(BUILD_DIR)/$(RES_BUNDLE)" "$(APP_BUNDLE)/Contents/Resources/"; \
 		echo "  ✓ Resource bundle copied"; \
 	else \
 		echo "  ⚠  Resource bundle not found (styles/template will use fallback)"; \
 	fi
+	@cp Sources/ASMR/Resources/AppIcon.icns         $(APP_BUNDLE)/Contents/Resources/
+	@echo "  ✓ App icon copied"
 	@echo "✓ $(APP_BUNDLE) ready"
 	@echo "  Run:     open $(APP_BUNDLE)"
 	@echo "  Install: cp -r $(APP_BUNDLE) /Applications/"
@@ -78,4 +97,4 @@ clean:
 	swift package clean
 	rm -rf $(APP_BUNDLE)
 
-.PHONY: license resolve run build app open install clean
+.PHONY: icon license resolve run build app open install clean

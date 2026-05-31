@@ -3,6 +3,20 @@
 
   ],
   "copyCommands" : {
+    "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/AppIcon.icns" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ffurtado/Documents/Claude Code/asmr/Sources/ASMR/Resources/AppIcon.icns"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/AppIcon.icns"
+        }
+      ]
+    },
     "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/ASMR_ASMR.bundle/highlight.min.css" : {
       "inputs" : [
         {
