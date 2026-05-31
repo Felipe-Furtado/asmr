@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The root view for an open document window.
-/// Owns the view-mode toggle and routes to either the rendered or raw editor.
+/// Owns the rendered ↔ raw toggle and routes to the appropriate subview.
 struct ContentView: View {
 
     @Binding var document: MarkdownFile
@@ -18,44 +18,35 @@ struct ContentView: View {
                 RawEditorView(text: $document.text)
             }
         }
+        .frame(minWidth: 480, idealWidth: 760, minHeight: 400)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button {
-                    toggle()
-                } label: {
+                Button(action: toggle) {
                     Label(
                         viewMode == .rendered ? "Edit Source" : "Preview",
                         systemImage: viewMode == .rendered ? "pencil" : "eye"
                     )
                 }
-                .help(viewMode == .rendered ? "Switch to raw Markdown editor (⌘U)" : "Switch to rendered preview (⌘U)")
+                .help(
+                    viewMode == .rendered
+                        ? "Switch to raw Markdown editor (⌘U)"
+                        : "Switch to rendered preview (⌘U)"
+                )
                 .keyboardShortcut("u", modifiers: .command)
             }
         }
-        .onAppear {
-            renderIfNeeded()
-        }
-        .onChange(of: document.text) {
-            // Re-render whenever text changes while in rendered mode
-            if viewMode == .rendered {
-                renderIfNeeded()
-            }
-        }
+        .onAppear { render() }
+        .onChange(of: document.text) { render() }
     }
 
     // MARK: - Private
 
     private func toggle() {
-        switch viewMode {
-        case .rendered:
-            viewMode = .raw
-        case .raw:
-            renderIfNeeded()
-            viewMode = .rendered
-        }
+        if viewMode == .raw { render() }
+        viewMode = viewMode == .rendered ? .raw : .rendered
     }
 
-    private func renderIfNeeded() {
+    private func render() {
         renderedHTML = MarkdownRenderer.shared.render(document.text)
     }
 }
@@ -67,27 +58,4 @@ extension ContentView {
         case rendered
         case raw
     }
-}
-
-// MARK: - Preview
-
-#Preview {
-    ContentView(
-        document: .constant(
-            MarkdownFile(text: """
-            # Hello, ASMR
-
-            This is a **preview** of the rendered view.
-
-            - Item one
-            - Item two
-            - Item three
-
-            ```swift
-            let greeting = "Hello, world!"
-            print(greeting)
-            ```
-            """)
-        )
-    )
 }

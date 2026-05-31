@@ -2,7 +2,8 @@ import SwiftUI
 import WebKit
 
 /// Displays rendered Markdown HTML inside a WKWebView.
-/// Read-only in v1. Inline editing is deferred to v2.
+/// Read-only in v1 (click to select text / copy works).
+/// True inline editing (WYSIWYG) is deferred to v2.
 struct RenderedView: NSViewRepresentable {
 
     let html: String
@@ -11,23 +12,18 @@ struct RenderedView: NSViewRepresentable {
 
     func makeNSView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
-        config.preferences.isTextInteractionEnabled = true  // allow text selection / copy
+        config.preferences.isTextInteractionEnabled = true   // allow select & copy
 
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
-
-        // Disable the web view's own right-click menu so we can provide a native one later
         webView.allowsMagnification = true
-        webView.enclosingScrollView?.hasVerticalScroller = true
-
         return webView
     }
 
     func updateNSView(_ webView: WKWebView, context: Context) {
-        // Resolve the bundle's Resources directory as the base URL so that
-        // relative paths (images, local CSS) work correctly.
+        // Use the bundle resource directory as the base URL so that relative
+        // paths (styles.css, highlight.min.js) resolve correctly.
         let baseURL = Bundle.module.resourceURL
-
         webView.loadHTMLString(html, baseURL: baseURL)
     }
 
@@ -37,8 +33,8 @@ struct RenderedView: NSViewRepresentable {
 
     // MARK: - Coordinator
 
-    class Coordinator: NSObject, WKNavigationDelegate {
-        /// Open links in the default browser rather than navigating inside the WebView.
+    final class Coordinator: NSObject, WKNavigationDelegate {
+        /// Intercept link taps — open in system browser, never navigate the WebView.
         func webView(
             _ webView: WKWebView,
             decidePolicyFor navigationAction: WKNavigationAction,
