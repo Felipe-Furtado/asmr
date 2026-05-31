@@ -34,8 +34,12 @@ run:
 # ──────────────────────────────────────────────
 
 ## Compile optimised arm64 binary
+## Note: on macOS 26 Tahoe, SPM emits a post-build disk I/O warning on its
+## build.db file — the build still succeeds. We treat it as a success if
+## the binary exists at the expected path.
 build:
-	swift build -c $(CONFIG) --arch $(ARCH)
+	swift build -c $(CONFIG) --arch $(ARCH); \
+	test -f "$(BUILD_DIR)/$(APP_NAME)"
 
 ## Build + assemble a proper .app bundle (double-clickable, drag to /Applications)
 app: build
@@ -44,7 +48,7 @@ app: build
 	@mkdir -p $(APP_BUNDLE)/Contents/MacOS
 	@mkdir -p $(APP_BUNDLE)/Contents/Resources
 	@cp $(BUILD_DIR)/$(APP_NAME)          $(APP_BUNDLE)/Contents/MacOS/
-	@cp Sources/ASMR/Info.plist           $(APP_BUNDLE)/Contents/
+	@cp Info.plist                         $(APP_BUNDLE)/Contents/
 	@if [ -d "$(BUILD_DIR)/$(RES_BUNDLE)" ]; then \
 		cp -r "$(BUILD_DIR)/$(RES_BUNDLE)" "$(APP_BUNDLE)/Contents/Resources/"; \
 		echo "  ✓ Resource bundle copied"; \

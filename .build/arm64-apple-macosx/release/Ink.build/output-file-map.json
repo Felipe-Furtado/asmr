@@ -1,0 +1,211 @@
+{
+  "": {
+    "dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Ink.d",
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Ink.o",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/primary.swiftdeps"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/API/Markdown.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Markdown.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Markdown~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Markdown.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Markdown.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/API/MarkdownParser.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/MarkdownParser.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/MarkdownParser~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/MarkdownParser.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/MarkdownParser.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/API/Modifier.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Modifier.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Modifier~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Modifier.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Modifier.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Blockquote.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Blockquote.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Blockquote~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Blockquote.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Blockquote.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Character+Classification.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Character+Classification.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Character+Classification~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Character+Classification.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Character+Classification.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Character+Escaping.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Character+Escaping.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Character+Escaping~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Character+Escaping.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Character+Escaping.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/CodeBlock.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/CodeBlock.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/CodeBlock~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/CodeBlock.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/CodeBlock.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/FormattedText.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/FormattedText.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/FormattedText~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/FormattedText.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/FormattedText.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Fragment.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Fragment.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Fragment~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Fragment.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Fragment.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/HTML.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HTML.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HTML~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HTML.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HTML.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/HTMLConvertible.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HTMLConvertible.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HTMLConvertible~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HTMLConvertible.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HTMLConvertible.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Hashable+AnyOf.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Hashable+AnyOf.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Hashable+AnyOf~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Hashable+AnyOf.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Hashable+AnyOf.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Heading.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Heading.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Heading~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Heading.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Heading.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/HorizontalLine.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HorizontalLine.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HorizontalLine~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HorizontalLine.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/HorizontalLine.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Image.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Image.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Image~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Image.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Image.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/InlineCode.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/InlineCode.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/InlineCode~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/InlineCode.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/InlineCode.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/KeyPathPatterns.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/KeyPathPatterns.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/KeyPathPatterns~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/KeyPathPatterns.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/KeyPathPatterns.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Link.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Link.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Link~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Link.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Link.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/List.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/List.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/List~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/List.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/List.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Metadata.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Metadata.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Metadata~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Metadata.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Metadata.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Modifiable.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Modifiable.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Modifiable~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Modifiable.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Modifiable.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/ModifierCollection.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/ModifierCollection.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/ModifierCollection~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/ModifierCollection.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/ModifierCollection.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/NamedURLCollection.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/NamedURLCollection.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/NamedURLCollection~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/NamedURLCollection.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/NamedURLCollection.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Paragraph.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Paragraph.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Paragraph~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Paragraph.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Paragraph.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/PlainTextConvertible.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/PlainTextConvertible.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/PlainTextConvertible~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/PlainTextConvertible.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/PlainTextConvertible.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Readable.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Readable.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Readable~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Readable.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Readable.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Reader.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Reader.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Reader~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Reader.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Reader.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Require.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Require.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Require~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Require.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Require.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Substring+Trimming.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Substring+Trimming.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Substring+Trimming~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Substring+Trimming.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Substring+Trimming.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/Table.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Table.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Table~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Table.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/Table.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/TextStyle.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/TextStyle.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/TextStyle~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/TextStyle.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/TextStyle.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/TextStyleMarker.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/TextStyleMarker.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/TextStyleMarker~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/TextStyleMarker.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/TextStyleMarker.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/URL.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/URL.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/URL~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/URL.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/URL.dia"
+  },
+  "/Users/ffurtado/Documents/Claude Code/asmr/.build/checkouts/Ink/Sources/Ink/Internal/URLDeclaration.swift": {
+    "object": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/URLDeclaration.swift.o",
+    "swiftmodule": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/URLDeclaration~partial.swiftmodule",
+    "swift-dependencies": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/URLDeclaration.swiftdeps",
+    "diagnostics": "/Users/ffurtado/Documents/Claude Code/asmr/.build/arm64-apple-macosx/release/Ink.build/URLDeclaration.dia"
+  }
+}

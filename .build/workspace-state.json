@@ -1,0 +1,30 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "ink",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/johnsundell/Ink.git",
+          "name" : "Ink"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "bcc9f219900a62c4210e6db726035d7f03ae757b",
+            "version" : "0.6.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "Ink"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}
