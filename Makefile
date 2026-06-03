@@ -3,11 +3,14 @@
 # Requires: Xcode installed (not just Command Line Tools)
 
 APP_NAME    := ASMR
+VERSION     := 0.1.0
 ARCH        := arm64
 CONFIG      := release
 BUILD_DIR   := .build/$(ARCH)-apple-macosx/$(CONFIG)
 APP_BUNDLE  := $(APP_NAME).app
 RES_BUNDLE  := $(APP_NAME)_$(APP_NAME).bundle
+DMG_NAME    := $(APP_NAME)-$(VERSION).dmg
+DMG_STAGING := /tmp/asmr-dmg-staging
 
 # ──────────────────────────────────────────────
 # First-time setup
@@ -88,6 +91,24 @@ install: app
 	@cp -r $(APP_BUNDLE) /Applications/
 	@echo "✓ Installed. Open it from Launchpad or Spotlight."
 
+## Create a distributable disk image (ASMR-x.y.z.dmg)
+## Produces a compressed DMG with a drag-to-Applications layout.
+## The SHA-256 printed at the end goes into the Homebrew Cask formula.
+dmg: app
+	@echo "▶ Creating $(DMG_NAME)..."
+	@rm -rf "$(DMG_STAGING)" "$(DMG_NAME)"
+	@mkdir -p "$(DMG_STAGING)"
+	@cp -r "$(APP_BUNDLE)" "$(DMG_STAGING)/"
+	@ln -s /Applications "$(DMG_STAGING)/Applications"
+	@hdiutil create \
+	    -volname "ASMR" \
+	    -srcfolder "$(DMG_STAGING)" \
+	    -ov -format UDZO \
+	    -o "$(DMG_NAME)" > /dev/null
+	@rm -rf "$(DMG_STAGING)"
+	@echo "✓ $(DMG_NAME) ready"
+	@printf "  SHA-256: "; shasum -a 256 "$(DMG_NAME)" | awk '{print $$1}'
+
 # ──────────────────────────────────────────────
 # Housekeeping
 # ──────────────────────────────────────────────
@@ -97,4 +118,4 @@ clean:
 	swift package clean
 	rm -rf $(APP_BUNDLE)
 
-.PHONY: icon license resolve run build app open install clean
+.PHONY: icon license resolve run build app open install dmg clean
