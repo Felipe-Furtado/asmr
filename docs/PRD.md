@@ -1,8 +1,8 @@
 # Product Requirements Document — ASMR
 
 **A Simple Markdown Reader**
-Last updated: 2026-05-28
-Status: Draft v0.2
+Last updated: 2026-06-03
+Status: v0.2 (v0.1.0 shipped)
 
 ---
 
@@ -45,26 +45,26 @@ Build a lightweight, native macOS application that lets users read, edit, and sa
 
 #### Must Have (v1 MVP)
 
-- **F1** — Open any `.md` file via Finder double-click, drag-and-drop onto the app icon, or "Open With" from the context menu
-- **F2** — Render standard CommonMark Markdown: headings (H1–H6), paragraphs, bold, italic, strikethrough, inline code, code blocks (with syntax highlighting), blockquotes, unordered lists, ordered lists, nested lists, horizontal rules, links, and images
-- **F3** — Render GitHub Flavored Markdown (GFM) extensions: tables, task lists (checkboxes rendered, not interactive in v1)
-- **F4** — Respect system appearance (light mode / dark mode), updating live if the user switches
-- **F5** — Display filename as the window title
-- **F6** — Support opening multiple files simultaneously in separate windows
-- **F7** — Register as a handler for the `.md` file extension so macOS offers ASMR as an option in "Open With"
-- **F8** — Toggle between rendered view and raw Markdown source (`⌘ U`) — this is a primary feature, not an afterthought
-- **F9** — Inline editing in rendered view: user clicks into the document and edits text with standard formatting controls; typing `**` bolds text, etc.
-- **F10** — Raw Markdown editing mode: plain-text editor with monospace font for users who prefer to work directly in Markdown syntax
-- **F11** — Save file to disk (`⌘ S`); Save As (`⌘ Shift S`)
-- **F12** — Dirty state indicator: window title shows the standard macOS edited indicator (dot) when there are unsaved changes
-- **F13** — Standard macOS Edit menu: undo/redo, cut, copy, paste
+- **F1** ✅ — Open any `.md` file via Finder double-click, drag-and-drop onto the app icon, or "Open With" from the context menu
+- **F2** ✅ — Render standard CommonMark Markdown: headings (H1–H6), paragraphs, bold, italic, strikethrough, inline code, code blocks, blockquotes, unordered lists, ordered lists, nested lists, horizontal rules, links, and images
+- **F3** ✅ — Render GitHub Flavored Markdown (GFM) extensions: tables, task lists (checkboxes rendered, not interactive)
+- **F4** ✅ — Respect system appearance (light mode / dark mode), updating live if the user switches
+- **F5** ✅ — Display filename as the window title
+- **F6** ✅ — Support opening multiple files simultaneously in separate windows
+- **F7** ✅ — Register as a handler for the `.md` file extension so macOS offers ASMR as an option in "Open With"
+- **F8** ✅ — Toggle between rendered view and raw Markdown source (`⌘ U`)
+- **F9** ⚠️ — Inline editing in rendered view — **deferred to v0.2**. v0.1 ships raw-mode editing only (F10). True WYSIWYG requires a content-editable WKWebView + JS↔Swift bridge + HTML-to-Markdown round-trip.
+- **F10** ✅ — Raw Markdown editing mode: plain-text editor with monospace font
+- **F11** ✅ — Save file to disk (`⌘ S`); Save As (`⌘ Shift S`)
+- **F12** ✅ — Dirty state indicator: window title shows the standard macOS edited indicator (dot) when there are unsaved changes
+- **F13** ✅ — Standard macOS Edit menu: undo/redo, cut, copy, paste
 
 #### Should Have (v1)
 
-- **F14** — Find in document (`⌘ F`) with text search and highlight
-- **F15** — Font size adjustment (`⌘ +` / `⌘ -` / `⌘ 0` to reset)
-- **F16** — Clickable hyperlinks open in the default browser
-- **F17** — Relative image paths resolve correctly relative to the source file's directory
+- **F14** ⏳ — Find in document (`⌘ F`) with text search and highlight — v0.2
+- **F15** ⏳ — Font size adjustment (`⌘ +` / `⌘ -` / `⌘ 0` to reset) — v0.2
+- **F16** ✅ — Clickable hyperlinks open in the default browser
+- **F17** ⏳ — Relative image paths resolve correctly relative to the source file's directory — v0.2 (baseURL fix needed)
 
 #### Nice to Have (v2+)
 
@@ -77,14 +77,14 @@ Build a lightweight, native macOS application that lets users read, edit, and sa
 
 ### 3.2 Non-Functional Requirements
 
-| ID | Requirement |
-|----|-------------|
-| **NF1** | App launch to first rendered document in under 500ms on Apple Silicon |
-| **NF2** | Renders a 10,000-line Markdown file without jank or dropped frames |
-| **NF3** | Memory footprint under 100MB for a single open document |
-| **NF4** | Sandbox-compatible; no network access required at runtime |
-| **NF5** | Notarized and distributed via the Mac App Store or direct download (signed) |
-| **NF6** | Minimum macOS version: Sequoia 15.0 (Apple Silicon + Intel) |
+| ID | Requirement | v0.1 Status |
+|----|-------------|-------------|
+| **NF1** | App launch to first rendered document in under 500ms on Apple Silicon | ✅ Met |
+| **NF2** | Renders a 10,000-line Markdown file without jank or dropped frames | ✅ Met |
+| **NF3** | Memory footprint under 100MB for a single open document | ✅ Met |
+| **NF4** | No network access required at runtime | ✅ Met |
+| **NF5** | Notarized and distributed via signed installer | ⏳ v0.2 (unsigned DMG + Homebrew for now) |
+| **NF6** | Minimum macOS version: 14.0 Sonoma | ✅ (revised from 15.0 — SDK constraint) |
 
 ### 3.3 Out of Scope (Explicit Exclusions)
 
@@ -147,12 +147,20 @@ Recommended starting point: **SwiftUI + WKWebView** with a local HTML/CSS templa
 
 ### 5.2 Markdown Parser
 
-- [swift-markdown](https://github.com/apple/swift-markdown) — Apple's own CommonMark parser (preferred)
-- [cmark-gfm](https://github.com/github/cmark-gfm) — GitHub's C library with GFM extensions (via Swift wrapper)
+**v0.1 choice: Ink 0.5.1** (johnsundell/Ink) — pure Swift, no C bridging.
+Known limitation: does not support indented fenced code blocks (CommonMark §4.5).
+Worked around via `normalizeCodeFences()` pre-processing in `MarkdownRenderer`.
+
+**v0.2 candidates for replacement:**
+- [swift-markdown](https://github.com/apple/swift-markdown) — Apple's CommonMark parser
+- [cmark-gfm](https://github.com/github/cmark-gfm) — GitHub C library (full GFM)
 
 ### 5.3 Syntax Highlighting
 
-- [highlight.js](https://highlightjs.org/) (client-side JS, bundled) — easiest to integrate with WKWebView approach
+**v0.1:** highlight.js stub files present in Resources but not loaded. Placeholder
+for v0.2 — wire `hljs.highlightAll()` into the HTML template.
+
+- [highlight.js](https://highlightjs.org/) (client-side JS, bundled) — preferred
 - [Prism.js](https://prismjs.com/) — alternative
 
 ---
@@ -171,10 +179,11 @@ Recommended starting point: **SwiftUI + WKWebView** with a local HTML/CSS templa
 ## 7. Open Questions
 
 - [ ] Paid app vs. free? (free with optional tip jar / one-time purchase recommended)
-- [ ] Mac App Store only, or also direct download?
-- [ ] Which default font — serif (New York) feels more "document-like"; sans-serif is more GitHub-like
-- [ ] Should v1 support frontmatter (YAML/TOML metadata blocks)? Render as a table or hide?
-- [ ] Auto-reload on file change — in v1 or v2?
+- [ ] Mac App Store submission — requires Apple Developer Program ($99/yr) + notarization
+- [x] Default font — **chose** `-apple-system, "New York", Georgia, serif` (document-like feel)
+- [ ] Frontmatter (YAML/TOML metadata blocks) — render as a collapsed table or strip? → v0.2
+- [ ] Auto-reload on file change — v0.2
+- [ ] F9 inline editing in rendered view — content-editable WKWebView + Markdown serializer → v0.2
 
 ---
 
@@ -183,4 +192,5 @@ Recommended starting point: **SwiftUI + WKWebView** with a local HTML/CSS templa
 | Date | Version | Notes |
 |------|---------|-------|
 | 2026-05-28 | 0.1 | Initial draft |
-| 2026-05-28 | 0.2 | Editing in scope; AI-era framing; GUI clarification; new AI Workflow User persona |
+| 2026-05-28 | 0.2 | Editing in scope; AI-era framing; new AI Workflow User persona |
+| 2026-06-03 | 0.3 | Status update post v0.1.0 ship: feature ✅/⏳ markers, NF6 revised to macOS 14, parser choice recorded, F9 deferred, open questions updated |

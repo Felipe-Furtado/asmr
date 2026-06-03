@@ -1,18 +1,21 @@
 # Architecture — ASMR
 
-Last updated: 2026-05-29
-Status: v0.1 Draft
+Last updated: 2026-06-03
+Status: v0.1.0 (reflects shipped code)
 
 ---
 
 ## 1. Overview
 
-ASMR is a native macOS document app built with **SwiftUI** and the **DocumentGroup** scene architecture. It uses **WKWebView** for rendered Markdown display and a plain **TextEditor** for raw Markdown editing. The two views share a single in-memory document model and toggle on demand.
+ASMR is a native macOS document app built with **SwiftUI** and the **DocumentGroup**
+scene architecture. It uses **WKWebView** for rendered Markdown display and a plain
+**TextEditor** for raw Markdown editing. The two views share a single in-memory
+document model (`MarkdownFile`) and toggle on demand with `⌘U`.
 
 ```
 ┌─────────────────────────────────────────────┐
 │                   ASMRApp                   │
-│              (DocumentGroup scene)          │
+│     (DocumentGroup — open/save/dirty free)  │
 └────────────────────┬────────────────────────┘
                      │ owns
                      ▼
@@ -20,29 +23,33 @@ ASMR is a native macOS document app built with **SwiftUI** and the **DocumentGro
 │               MarkdownFile                  │
 │         (SwiftUI FileDocument)              │
 │  • text: String          (source of truth)  │
-│  • isDirty tracked by DocumentGroup         │
+│  • dirty / undo tracked by DocumentGroup    │
 └────────────────────┬────────────────────────┘
-                     │ passed into
+                     │ passed as @Binding into
                      ▼
 ┌─────────────────────────────────────────────┐
 │               ContentView                   │
 │  • viewMode: .rendered | .raw               │
-│  • ⌘U toggles between modes                 │
+│  • ⌘U toggles; re-renders on text change    │
+│  • reads @Environment(\.colorScheme)        │
 └──────────┬──────────────────────┬───────────┘
            │                      │
            ▼                      ▼
 ┌──────────────────┐   ┌──────────────────────┐
 │  RenderedView    │   │    RawEditorView      │
-│  (WKWebView      │   │  (TextEditor,         │
-│   read-only)     │   │   monospace, editable)│
+│  (WKWebView via  │   │  (TextEditor,         │
+│  NSViewRepresen- │   │   SF Mono, 14pt,      │
+│  table)          │   │   bound to text)      │
 └────────┬─────────┘   └──────────────────────┘
-         │
+         │ receives html: String
          ▼
-┌──────────────────┐
-│ MarkdownRenderer │
-│ text → HTML      │
-│ (cmark-gfm)      │
-└──────────────────┘
+┌──────────────────────────────────────────────┐
+│           MarkdownRenderer (singleton)       │
+│  1. normalizeCodeFences()                    │
+│  2. Ink.MarkdownParser.parse()               │
+│  3. template + CSS substitution              │
+│  → self-contained HTML string                │
+└──────────────────────────────────────────────┘
 ```
 
 ---
@@ -51,13 +58,13 @@ ASMR is a native macOS document app built with **SwiftUI** and the **DocumentGro
 
 | Layer | Choice | Rationale |
 |-------|--------|-----------|
-| UI framework | SwiftUI | Native, declarative, dark mode for free |
-| Document model | `FileDocument` (SwiftUI) | Gives undo/redo, dirty state, open/save dialogs at zero cost |
-| Rendered view | `WKWebView` wrapped in `NSViewRepresentable` | Fast, CSS-styleable, handles complex tables and code blocks well |
-| Raw editor | SwiftUI `TextEditor` | Simple; monospace font; sufficient for v1 |
-| Markdown parser | `cmark-gfm` (C library via SPM wrapper) | Full GFM support (tables, task lists, strikethrough) |
-| Syntax highlighting | `highlight.js` (bundled, loaded locally) | Easy WKWebView integration; no network required |
-| Minimum OS | macOS Sequoia 15.0 | Modern SwiftUI APIs; Apple Silicon + Intel |
+| UI framework | SwiftUI | Native, declarative, dark mode and window management for free |
+| Document model | `FileDocument` (SwiftUI) | Gives open/save/dirty/undo at zero cost via `DocumentGroup` |
+| Rendered view | `WKWebView` via `NSViewRepresentable` | Fast, CSS-styleable; handles tables and code blocks well |
+| Raw editor | SwiftUI `TextEditor` | Sufficient for v1; monospace font; zero boilerplate |
+| Markdown parser | **Ink 0.5.1** (johnsundell/Ink) | Pure Swift, no C bridging, trivial SPM integration |
+| Syntax highlighting | highlight.js | Bundled stubs present; **not yet wired up** (v0.2) |
+| Minimum OS | macOS 14.0 Sonoma | Constrained by Xcode on macOS 26 Tahoe SDK default |
 
 ---
 
@@ -65,57 +72,57 @@ ASMR is a native macOS document app built with **SwiftUI** and the **DocumentGro
 
 ```
 asmr/
-├── Package.swift
-├── Sources/
-│   └── ASMR/
-│       ├── App.swift                  # @main, DocumentGroup scene
-│       ├── Models/
-│       │   └── MarkdownFile.swift     # FileDocument conformance
-│       ├── Views/
-│       │   ├── ContentView.swift      # Root view, toggle logic
-│       │   ├── RenderedView.swift     # WKWebView NSViewRepresentable
-│       │   └── RawEditorView.swift    # Plain text editor
-│       ├── Services/
-│       │   └── MarkdownRenderer.swift # text → HTML pipeline
-│       └── Resources/
-│           ├── template.html          # HTML shell injected per render
-│           ├── styles-light.css       # Light mode styles
-│           ├── styles-dark.css        # Dark mode styles
-│           └── highlight.min.js       # Bundled syntax highlighter
-├── docs/
-│   ├── PRD.md
-│   └── ARCHITECTURE.md
-└── README.md
+├── Package.swift                  SPM manifest; macOS 14 target; Ink dep
+├── Info.plist                     Bundle ID, file-type UTI, icon declaration
+├── Makefile                       run / build / app / open / install / dmg / icon
+├── CLAUDE.md                      Agent-facing project memory (decisions, bugs, setup)
+├── BUILDING.md                    Human-readable build guide
+├── scripts/
+│   └── make_icon.swift            Generates AppIcon.icns via CoreGraphics
+└── Sources/ASMR/
+    ├── App.swift                  @main; DocumentGroup scene
+    ├── Models/
+    │   └── MarkdownFile.swift     FileDocument; UTType.markdown; UTF-8 I/O
+    ├── Views/
+    │   ├── ContentView.swift      Root view; toggle logic; re-render triggers
+    │   ├── RenderedView.swift     WKWebView wrapper; WKUserScript injection
+    │   └── RawEditorView.swift    TextEditor bound to $document.text
+    ├── Services/
+    │   └── MarkdownRenderer.swift Singleton; fence normalization; CSS inlining
+    └── Resources/
+        ├── template.html          HTML shell ({{THEME}}, {{STYLES}}, {{CONTENT}})
+        ├── styles.css             Typography + dark mode + code block styles
+        ├── AppIcon.icns           Generated from make icon
+        ├── highlight.min.js       Stub placeholder (not functional in v0.1)
+        └── highlight.min.css      Stub placeholder (not functional in v0.1)
 ```
 
 ---
 
 ## 4. Document Model
 
-ASMR uses SwiftUI's `FileDocument` protocol, which gives us the standard macOS document lifecycle (open, save, save-as, dirty tracking, undo) without subclassing `NSDocument`.
+`MarkdownFile` conforms to `FileDocument`. The entire document is a single UTF-8
+`String`. `DocumentGroup` wraps it in a full macOS document lifecycle.
 
 ```swift
-// MarkdownFile.swift
 struct MarkdownFile: FileDocument {
     static var readableContentTypes: [UTType] { [.markdown] }
     var text: String
 
-    init(text: String = "") { self.text = text }
+    init(configuration: ReadConfiguration) throws { /* UTF-8 decode */ }
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper { /* UTF-8 encode */ }
+}
 
-    init(configuration: ReadConfiguration) throws {
-        // Read raw bytes → UTF-8 string
-    }
-
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        // UTF-8 encode text → FileWrapper
+extension UTType {
+    static var markdown: UTType {
+        UTType(importedAs: "net.daringfireball.markdown")
     }
 }
 ```
 
-**Why `FileDocument` over `NSDocument`:**
-- Native SwiftUI integration — no AppKit bridging needed
-- `DocumentGroup` handles the open/save sheet, dirty dot, and undo stack automatically
-- Simpler to reason about: the document is just a `String`
+**Why `FileDocument` over `NSDocument`:** `DocumentGroup` handles the Open panel,
+Save As panel, dirty indicator, and undo stack automatically. The document is just a
+`String` — no AppKit bridging, no `NSDocument` subclass.
 
 ---
 
@@ -123,116 +130,168 @@ struct MarkdownFile: FileDocument {
 
 ### 5.1 ContentView
 
-The root view owns the `viewMode` state and renders either `RenderedView` or `RawEditorView`.
+Owns `viewMode` and `renderedHTML`. Re-renders whenever `document.text` or
+`colorScheme` changes. Switching raw→rendered re-renders before swapping the view.
 
-```
-ContentView
-├── toolbar: [Toggle Rendered/Raw button]
-├── if .rendered → RenderedView(html: rendered(document.text))
-└── if .raw      → RawEditorView(text: $document.text)
-```
+```swift
+.onAppear            { render() }
+.onChange(of: document.text) { render() }
+.onChange(of: colorScheme)   { render() }
 
-- Switching from raw → rendered re-renders the HTML from the current `document.text`
-- Switching from rendered → raw shows the current `document.text` in the text editor
-- All edits in `RawEditorView` mutate `document.text` directly via `Binding`, which triggers dirty-state tracking automatically
+private func render() {
+    renderedHTML = MarkdownRenderer.shared.render(
+        document.text,
+        isDark: colorScheme == .dark
+    )
+}
+```
 
 ### 5.2 RenderedView (WKWebView)
 
-`RenderedView` wraps a `WKWebView` using `NSViewRepresentable`. On each render:
+`NSViewRepresentable` wrapper. Key setup in `makeNSView`:
 
-1. `MarkdownRenderer` converts the Markdown string to an HTML fragment
-2. The fragment is injected into `template.html`
-3. The complete HTML is loaded into the WebView via `loadHTMLString(_:baseURL:)` with a local base URL so relative images resolve correctly
+```swift
+// Force white-space preservation on pre/code via JS — overrides any UA-stylesheet
+// interference. Fires at document-end with inline-style specificity.
+let wsScript = WKUserScript(
+    source: """
+    document.querySelectorAll('pre, pre code').forEach(function(el) {
+        el.style.whiteSpace = 'pre-wrap';
+        el.style.overflowWrap = 'anywhere';
+        el.style.wordBreak = 'normal';
+    });
+    """,
+    injectionTime: .atDocumentEnd,
+    forMainFrameOnly: true
+)
+config.userContentController.addUserScript(wsScript)
 
-The WebView is **not** editable in v1 (`isEditable = false`). Clicking into the document in rendered mode has no effect; the user presses `⌘ U` to switch to raw mode for editing.
+webView.setValue(false, forKey: "drawsBackground")  // prevents white pre-load flash
+webView.allowsMagnification = true
+```
 
-> **v2 consideration:** True inline editing in rendered view (like Notion) would require a content-editable WebView + a JS↔Swift bridge to sync HTML changes back to Markdown. This is a significant addition deferred to v2.
+`updateNSView` calls `webView.loadHTMLString(html, baseURL: nil)`. The HTML string is
+fully self-contained — CSS is inlined, no external resources needed.
+
+The `WKNavigationDelegate` intercepts `.linkActivated` navigation and opens links in
+the system browser.
 
 ### 5.3 RawEditorView
 
-A SwiftUI `TextEditor` bound directly to `document.text`, styled with SF Mono and a comfortable line height. This is the edit surface for v1.
+SwiftUI `TextEditor` bound to `$document.text`, styled SF Mono 14pt with 4pt extra
+line spacing. Edits directly mutate `document.text`, which `DocumentGroup` tracks for
+dirty state and undo.
 
 ---
 
 ## 6. Markdown Rendering Pipeline
 
 ```
-document.text (String)
-       │
-       ▼
-  cmark-gfm parser
-  (CommonMark + GFM extensions: tables, task lists, strikethrough)
-       │
-       ▼
-  HTML fragment (String)
-       │
-       ▼
-  Injected into template.html
-  (applies CSS, inlines highlight.js)
-       │
-       ▼
-  WKWebView.loadHTMLString(_:baseURL:)
-       │
-       ▼
-  Rendered document in window
+document.text
+    │
+    ▼  normalizeCodeFences()
+    │  strips leading whitespace from lines starting with ``` or ~~~
+    │  (Ink requires fence markers at column 0; indented fences inside
+    │   list items would cause runaway code blocks otherwise)
+    │
+    ▼  Ink.MarkdownParser().parse(markdown)
+    │  → Markdown.html  (HTML fragment; literal \n preserved in <pre><code>)
+    │
+    ▼  template substitution
+    │  {{THEME}}   → "dark" | "light"   (class on <html> element)
+    │  {{STYLES}}  → full contents of styles.css  (inlined — no <link> tag)
+    │  {{CONTENT}} → Ink HTML fragment
+    │
+    ▼  WKWebView.loadHTMLString(html, baseURL: nil)
+       + WKUserScript at document-end pins white-space: pre-wrap
 ```
 
-**Template injection** replaces a single `{{CONTENT}}` placeholder in `template.html` with the HTML fragment. The CSS applies the typography defaults from the PRD (SF Pro or New York body, SF Mono code, ~680px line width, 1.6 line height).
+### Why CSS is inlined, not `<link href="styles.css">`
 
-**Dark mode:** The CSS uses `@media (prefers-color-scheme: dark)` so the WebView inherits the system appearance without any Swift-side logic.
+`loadHTMLString(_:baseURL:)` with `baseURL: nil` gives the page an `about:blank`
+origin. WebKit's security model silently blocks loading relative `file://` resources
+in this configuration — even when a bundle base URL is provided. There is no reliable
+workaround. Instead, `MarkdownRenderer` reads `styles.css` from `Bundle.module` once
+at init and substitutes its full text into the HTML string via `{{STYLES}}`.
 
----
+### Why dark mode uses `html.dark {}`, not `@media (prefers-color-scheme: dark)`
 
-## 7. File I/O & Save Flow
-
-`DocumentGroup` handles all file I/O. The flow for saving:
-
-1. User presses `⌘ S`
-2. SwiftUI calls `fileWrapper(configuration:)` on `MarkdownFile`
-3. `document.text` is UTF-8 encoded and returned as a `FileWrapper`
-4. The framework writes the file and clears the dirty indicator
-
-No custom save logic is needed. First-time saves ("Save As") use the standard NSSavePanel provided by `DocumentGroup`.
-
----
-
-## 8. Keyboard Shortcuts
-
-| Action | Shortcut | Where handled |
-|--------|----------|---------------|
-| Toggle rendered/raw | `⌘ U` | ContentView `.keyboardShortcut` |
-| Save | `⌘ S` | DocumentGroup (automatic) |
-| Save As | `⌘ ⇧ S` | DocumentGroup (automatic) |
-| Find | `⌘ F` | v1: WKWebView built-in find; raw: TextEditor built-in |
-| Undo / Redo | `⌘ Z` / `⌘ ⇧ Z` | DocumentGroup (automatic) |
-| Zoom In/Out/Reset | `⌘ +` / `⌘ -` / `⌘ 0` | ContentView, adjusts WKWebView zoom |
+`@media (prefers-color-scheme: dark)` is evaluated by WebKit against the view's
+`NSAppearance`. Inside a `DocumentGroup` window's `NSViewRepresentable`, this
+appearance is not reliably propagated before the first `loadHTMLString` call. Instead,
+Swift reads `@Environment(\.colorScheme)` and stamps `class="dark"` or `class="light"`
+onto `<html>` before loading. CSS rules like `html.dark { --bg-color: #1e1e1e; }` fire
+on the very first paint with no timing dependency.
 
 ---
 
-## 9. Dependencies
+## 7. Ink Parser: Known Limitation and Workaround
 
-| Dependency | Source | Purpose |
-|------------|--------|---------|
-| `cmark-gfm` | Swift package wrapper (e.g. `scinfu/cmark-gfm-swift`) | GFM Markdown → HTML |
-| `highlight.js` | Bundled in Resources (no CDN) | Syntax highlighting in code blocks |
+Ink 0.5.1 requires fence markers to begin at column 0. CommonMark §4.5 allows fences
+inside list items to be indented. When indented, Ink never matches the closing fence —
+the block runs on until the next un-indented ` ``` ` in the document.
 
-No other third-party dependencies. No network access at runtime.
+**Workaround:** `normalizeCodeFences()` strips leading whitespace from any line whose
+non-whitespace content begins with ```` ``` ```` or `~~~`. Fence markers are normalised;
+content inside blocks is untouched.
 
----
-
-## 10. What's Not in v1
-
-| Feature | Reason deferred |
-|---------|-----------------|
-| Inline editing in rendered view | Requires JS↔Swift bridge + HTML-to-Markdown round-trip; significant complexity |
-| Table of Contents sidebar | Needs heading extraction post-parse; straightforward but non-trivial layout |
-| File watcher / auto-reload | Requires `DispatchSource` file watcher; conflicts with document dirty state |
-| iOS / iPadOS | Different platform target; document-group approach ports cleanly later |
+Full CommonMark compliance would require replacing Ink with `swift-markdown` (Apple) or
+`cmark-gfm` — candidates for v0.2.
 
 ---
 
-## 11. Revision History
+## 8. Styling
+
+`styles.css` uses CSS custom properties on `:root` for light mode and `html.dark {}`
+for dark mode. Key rules:
+
+| Element | Value |
+|---------|-------|
+| Body font | `-apple-system, "New York", Georgia, serif` |
+| Code font | `"SF Mono", "Menlo", "Courier New", monospace` |
+| Line width | `680px` max-width on `.markdown-body` |
+| Body size | `17px`, line-height `1.65` |
+| Code blocks | `white-space: pre-wrap`, `overflow-wrap: anywhere` — soft-wrap, no horizontal scroll |
+
+---
+
+## 9. File Type Registration
+
+`Info.plist` declares ASMR as `Editor` for `net.daringfireball.markdown` (`.md`,
+`.markdown`). `UTImportedTypeDeclarations` ensures the UTI is available even on systems
+where no other app has defined it.
+
+---
+
+## 10. Distribution
+
+| Channel | Details |
+|---------|---------|
+| GitHub Releases | `make dmg` → `ASMR-x.y.z.dmg` → `gh release create` |
+| Homebrew Cask | `brew tap Felipe-Furtado/asmr` → `brew install --cask asmr` |
+| Build from source | `make install` (requires Xcode) |
+
+No code signing / notarization in v0.1. Users must right-click → Open or run
+`xattr -dr com.apple.quarantine /Applications/ASMR.app` the first time.
+
+---
+
+## 11. What's Not in v0.1
+
+| Feature | Notes for v0.2 |
+|---------|----------------|
+| Syntax highlighting | highlight.js stubs in Resources; wire up `hljs.highlightAll()` in template |
+| Find in document | Expose WKWebView built-in find bar (`⌘F`) |
+| Font size control | `webView.magnification` via `⌘+` / `⌘-` / `⌘0` |
+| Frontmatter | Render YAML/TOML header block as a collapsed table or strip it |
+| CommonMark compliance | Replace Ink with `swift-markdown` or `cmark-gfm` |
+| Notarization | Apple Developer Program ($99/yr); prerequisite for App Store |
+
+---
+
+## 12. Revision History
 
 | Date | Version | Notes |
 |------|---------|-------|
-| 2026-05-29 | 0.1 | Initial architecture draft |
+| 2026-05-29 | 0.1 | Initial draft |
+| 2026-06-03 | 0.2 | Full rewrite to reflect shipped v0.1.0: Ink parser, CSS inlining, dark mode approach, fence-normalization bug/fix, WKUserScript, macOS 14 target, distribution |
