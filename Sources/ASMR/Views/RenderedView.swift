@@ -21,6 +21,7 @@ struct RenderedView: NSViewRepresentable {
             source: """
             document.querySelectorAll('pre, pre code').forEach(function(el) {
                 el.style.whiteSpace = 'pre-wrap';
+                el.style.overflowWrap = 'anywhere';
                 el.style.wordBreak = 'normal';
             });
             """,

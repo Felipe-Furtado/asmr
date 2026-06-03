@@ -162,10 +162,10 @@ pre {
   border: 1px solid var(--code-border);
   border-radius: 6px;
   padding: 1em 1.25em;
-  overflow-x: auto;
   margin: 0 0 1.25em;
-  white-space: pre-wrap;     /* preserve newlines + wrap at boundary */
-  word-break: break-all;
+  white-space: pre-wrap;     /* preserve newlines + soft-wrap long lines */
+  overflow-wrap: anywhere;   /* break only when a line would otherwise overflow */
+  word-break: normal;
 }
 
 pre code {
@@ -174,8 +174,9 @@ pre code {
   padding: 0;
   font-size: 0.875em;
   line-height: 1.5;
-  white-space: pre-wrap;     /* explicit on code too — do not inherit, do not rely on UA */
-  word-break: break-all;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 /* ---- Tables ---- */
