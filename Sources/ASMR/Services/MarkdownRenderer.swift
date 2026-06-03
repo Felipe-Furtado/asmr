@@ -70,10 +70,34 @@ final class MarkdownRenderer {
     ///               is injected onto `<html>` so CSS `html.dark { }` rules
     ///               apply on the very first paint.
     func render(_ markdown: String, isDark: Bool) -> String {
-        let result = parser.parse(markdown)
+        let result = parser.parse(normalizeCodeFences(markdown))
         return template
             .replacingOccurrences(of: "{{THEME}}",   with: isDark ? "dark" : "light")
             .replacingOccurrences(of: "{{STYLES}}",  with: css)
             .replacingOccurrences(of: "{{CONTENT}}", with: result.html)
+    }
+
+    // MARK: - Private helpers
+
+    /// Ink does not support fenced code blocks inside list items (CommonMark §4.5).
+    /// It requires fence markers (``` or ~~~) to start at column 0. When a fence
+    /// is indented — as is normal inside ordered/unordered list items — Ink fails
+    /// to recognise the closing fence, causing the code block to "run on" and
+    /// consume subsequent document content.
+    ///
+    /// Fix: strip leading whitespace from any line whose non-whitespace content
+    /// begins with three or more backticks or tildes. This normalises all fence
+    /// markers to column 0 before Ink sees them, while leaving all other content
+    /// (including indented code lines inside the block) untouched.
+    private func normalizeCodeFences(_ markdown: String) -> String {
+        let lines = markdown.components(separatedBy: "\n")
+        let normalized = lines.map { line -> String in
+            let stripped = line.drop(while: { $0 == " " || $0 == "\t" })
+            if stripped.hasPrefix("```") || stripped.hasPrefix("~~~") {
+                return String(stripped)
+            }
+            return line
+        }
+        return normalized.joined(separator: "\n")
     }
 }

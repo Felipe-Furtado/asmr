@@ -164,9 +164,8 @@ pre {
   padding: 1em 1.25em;
   overflow-x: auto;
   margin: 0 0 1.25em;
-  white-space: pre;          /* WKWebView UA stylesheet can collapse newlines — pin it */
-  word-wrap: normal;
-  word-break: normal;
+  white-space: pre-wrap;     /* preserve newlines + wrap at boundary */
+  word-break: break-all;
 }
 
 pre code {
@@ -175,6 +174,8 @@ pre code {
   padding: 0;
   font-size: 0.875em;
   line-height: 1.5;
+  white-space: pre-wrap;     /* explicit on code too — do not inherit, do not rely on UA */
+  word-break: break-all;
 }
 
 /* ---- Tables ---- */

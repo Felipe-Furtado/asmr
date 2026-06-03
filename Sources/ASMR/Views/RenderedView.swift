@@ -14,6 +14,21 @@ struct RenderedView: NSViewRepresentable {
         let config = WKWebViewConfiguration()
         config.preferences.isTextInteractionEnabled = true   // allow select & copy
 
+        // Belt-and-suspenders: force white-space on pre/code via JS after DOM is built.
+        // Fires at inline-style specificity so it cannot be overridden by UA stylesheets
+        // or any cascade quirk inside WKWebView.
+        let wsScript = WKUserScript(
+            source: """
+            document.querySelectorAll('pre, pre code').forEach(function(el) {
+                el.style.whiteSpace = 'pre-wrap';
+                el.style.wordBreak = 'normal';
+            });
+            """,
+            injectionTime: .atDocumentEnd,
+            forMainFrameOnly: true
+        )
+        config.userContentController.addUserScript(wsScript)
+
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
 
