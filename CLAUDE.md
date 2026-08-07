@@ -13,7 +13,7 @@ SwiftUI. It opens `.md` files, renders them with clean typography, and lets the 
 and save them. No Electron, no runtime, no IDE features. Think "Preview for Markdown."
 
 - **GitHub:** https://github.com/Felipe-Furtado/asmr
-- **Owner:** Felipe Furtado (ffurtado@umich.edu)
+- **Owner:** Felipe Furtado
 - **Current release:** v0.1.0 (June 2026)
 - **Homebrew tap:** `brew tap Felipe-Furtado/asmr && brew install --cask asmr`
 
@@ -48,8 +48,7 @@ Everything below is **working and shipped**:
 
 ```bash
 # Prerequisites: Xcode (not just CLT) + Apple Silicon Mac
-
-cd ~/Documents/Claude\ Code/asmr
+# Run these commands from the repository root.
 
 make open       # build release + assemble .app + launch
 make install    # build + copy to /Applications
@@ -216,7 +215,7 @@ Apple Developer Program ($99/yr) — deferred to v0.2 / App Store push.
 
 ## Environment
 
-- **Machine:** Apple Silicon MacBook Air (arm64), macOS 26.5 Tahoe
+- **Architecture:** Apple Silicon (arm64), macOS 26.5 Tahoe
 - **Swift:** 6.3.2 (Xcode)
 - **Deployment target:** macOS 14.0 (not 15 — CLI tools SDK on Tahoe only exposes 14.4)
 - **SPM dependency:** `johnsundell/Ink` 0.5.1 (pinned)

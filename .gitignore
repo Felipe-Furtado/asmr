@@ -1,0 +1,12 @@
+# Swift Package Manager build products
+.build/
+.swiftpm/
+
+# Generated application and release artifacts
+ASMR.app/
+*.dmg
+*.dSYM/
+DerivedData/
+
+# macOS metadata
+.DS_Store
